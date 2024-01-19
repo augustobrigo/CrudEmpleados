@@ -8,6 +8,13 @@ import { CuadroDialogoEmpleadoComponent } from './cuadro-dialogo-empleado/cuadro
 import { ListadoComponent } from './listado/listado.component';
 import { FormsModule } from '@angular/forms';
 import{HttpClientModule} from '@angular/common/http'
+import { MatPaginatorModule} from '@angular/material/paginator';
+import { MatSortModule} from '@angular/material/sort';
+import { MatTableModule} from '@angular/material/table';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,7 +24,9 @@ import{HttpClientModule} from '@angular/common/http'
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,FormsModule,HttpClientModule
+    BrowserAnimationsModule,FormsModule,HttpClientModule,
+    MatPaginatorModule,MatSortModule,MatTableModule,
+    MatInputModule,MatFormFieldModule,MatButtonModule,MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
