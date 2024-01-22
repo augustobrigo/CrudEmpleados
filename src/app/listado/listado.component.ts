@@ -40,26 +40,38 @@ export class ListadoComponent {
 
   }
 
+
   abrirDialogo() {
     const dialogo1=this.dialogo.open(CuadroDialogoEmpleadoComponent,{data:new Empleado(0,"","","",0,"")});
     console.log("asdfasd")
     dialogo1.afterClosed().subscribe(arg=>{console.log("holaa"+arg);
 
       if(arg!=undefined){
-        this.servicio.insertarEmpleado(arg).subscribe();
+        this.servicio.insertarEmpleado(arg).subscribe(x=>{
+
+          this.listarEmpleados();
+          alert("Se ha insertado el Empleado");
+
+        });
       }else{
-        alert()
+        alert("No se ha insertado ningún empleado")
       }
 
   })
   }
 
+
   constructor(private servicio:MusinService,public dialogo:MatDialog){
+    this.listarEmpleados();
+  }
+
+  listarEmpleados(){
     this.servicio.leerEmpleados().subscribe(arg=>{
       this.listaEmpleado.data=arg;
       this.listaEmpleado.paginator=this.paginador;
       this.listaEmpleado.sort=this.ordenacion;
     });
+
   }
 
 
