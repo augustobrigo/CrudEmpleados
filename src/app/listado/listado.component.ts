@@ -32,23 +32,47 @@ export class ListadoComponent {
     }
   }
 
-  modificarEmpleado(Empleado: Empleado) {
+  modificarEmpleado(emp: Empleado) {
+
+    const dialogo2=this.dialogo.open(CuadroDialogoEmpleadoComponent,{data:emp});
+    dialogo2.afterClosed().subscribe(arg=>{
+      if(arg!=undefined){
+
+        this.servicio.modificarEmpleado(arg).subscribe(x=>{
+          this.listarEmpleados();
+          alert("Se ha modificado correctamente el empleado "+arg.nombre)
+        });
+
+      }else{
+        alert("No se ha modificado el empleado")
+      }
+    })
 
   }
 
-  eliminarEmpleado(Empleado: Empleado) {
+  eliminarEmpleado(emp: Empleado) {
+
+    if(confirm("Estas Seguro de eliminar "+emp.nombre)){
+      this.servicio.eliminarEmplado(emp).subscribe(arg=>{
+        alert("Se ha eliminado correctamente el empleado");
+        this.listarEmpleados();
+      });
+    }else{
+      alert("No se ha eliminado el empleado "+emp.nombre);
+    }
+
 
   }
 
 
   abrirDialogo() {
     const dialogo1=this.dialogo.open(CuadroDialogoEmpleadoComponent,{data:new Empleado(0,"","","",0,"")});
-    console.log("asdfasd")
-    dialogo1.afterClosed().subscribe(arg=>{console.log("holaa"+arg);
 
-      if(arg!=undefined){
+    dialogo1.afterClosed().subscribe(arg=>{
+      console.log("Despues de cerrar"+arg);
+      if(arg!=undefined && arg.id!=0 && arg.id!=null){
         this.servicio.insertarEmpleado(arg).subscribe(x=>{
-
+          console.log("Después de confirmar "+arg);
           this.listarEmpleados();
           alert("Se ha insertado el Empleado");
 
